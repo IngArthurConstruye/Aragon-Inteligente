@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aragón Inteligente · Registro de participación</title>
+<meta name="description" content="Registro de participación en el proyecto Aragón Inteligente: modelos digitales y gobernanza de la información. FES Aragón, UNAM.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS DE COLOR
+   Esquema claro = mitad inferior del cartel.
+   Esquema oscuro = mitad superior.
+   El encabezado siempre es azul marino: ahí vive la identidad.
+   ============================================================ */
+:root{
+  --bg:#E9F1FA;
+  --bg-2:#FFFFFF;
+  --panel:rgba(255,255,255,.78);
+  --panel-brd:rgba(11,45,99,.16);
+  --text:#0A2148;
+  --text-2:#44608B;
+  --text-3:#6E85A8;
+  --line:rgba(10,33,72,.14);
+  --field:#FFFFFF;
+  --field-brd:rgba(10,33,72,.22);
+  --chip:rgba(255,255,255,.7);
+  --azure:#1462C4;
+  --azure-soft:rgba(20,98,196,.10);
+  --cyan:#0E93C7;
+  --copper:#A9642A;
+  --danger:#B2361F;
+  --focus:#0E93C7;
+
+  /* Marca fija del encabezado: no cambia con el esquema */
+  --navy:#061A38;
+  --navy-line:rgba(140,196,255,.20);
+  --navy-text:#EAF3FF;
+  --navy-text-2:#9FBEE4;
+  --glow:#6FD3F2;
+  --brass:#D79A55;
+
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#051730;
+    --bg-2:#0A2450;
+    --panel:rgba(10,36,80,.66);
+    --panel-brd:rgba(140,196,255,.18);
+    --text:#E9F2FD;
+    --text-2:#A3BFE2;
+    --text-3:#7C9AC1;
+    --line:rgba(160,200,255,.16);
+    --field:rgba(4,18,40,.7);
+    --field-brd:rgba(160,200,255,.26);
+    --chip:rgba(10,36,80,.55);
+    --azure:#4FA3F0;
+    --azure-soft:rgba(79,163,240,.14);
+    --cyan:#6FD3F2;
+    --copper:#DFA361;
+    --danger:#FF9C86;
+    --focus:#6FD3F2;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#051730; --bg-2:#0A2450; --panel:rgba(10,36,80,.66); --panel-brd:rgba(140,196,255,.18);
+  --text:#E9F2FD; --text-2:#A3BFE2; --text-3:#7C9AC1; --line:rgba(160,200,255,.16);
+  --field:rgba(4,18,40,.7); --field-brd:rgba(160,200,255,.26); --chip:rgba(10,36,80,.55);
+  --azure:#4FA3F0; --azure-soft:rgba(79,163,240,.14); --cyan:#6FD3F2; --copper:#DFA361;
+  --danger:#FF9C86; --focus:#6FD3F2;
+}
+
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 16px);-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Archivo','Helvetica Neue',Arial,sans-serif;
+  font-size:17px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{max-width:100%}
+a{color:var(--azure)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:4px}
+
+.wrap{width:min(1080px,100% - 2.5rem);margin-inline:auto}
+.narrow{width:min(760px,100% - 2.5rem);margin-inline:auto}
+
+/* ---------- Barra institucional ---------- */
+.topbar{
+  background:var(--navy);
+  color:var(--navy-text-2);
+  font-size:.78rem;
+  letter-spacing:.06em;
+  border-bottom:1px solid rgba(215,154,85,.35);
+  padding-top:env(safe-area-inset-top,0px);
+}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px;flex-wrap:wrap}
+.topbar b{color:var(--brass);font-weight:700}
+
+/* ---------- Aviso de configuración (solo para quien organiza) ---------- */
+.setup{
+  background:#5A3B0E;color:#FFE9C6;font-size:.85rem;line-height:1.45;
+  border-bottom:1px solid rgba(255,220,170,.3);
+}
+.setup .wrap{display:flex;gap:.9rem;align-items:flex-start;padding:.7rem 0}
+.setup code{background:rgba(0,0,0,.28);padding:.1em .4em;border-radius:4px;font-size:.92em}
+.setup button{
+  margin-left:auto;flex:none;background:none;border:1px solid rgba(255,233,198,.45);
+  color:inherit;border-radius:999px;width:26px;height:26px;cursor:pointer;font-size:14px;line-height:1
+}
+
+/* ---------- Encabezado ---------- */
+.hero{
+  position:relative;overflow:hidden;isolation:isolate;
+  background:
+    radial-gradient(120% 80% at 50% -10%, #1B4E9C 0%, rgba(27,78,156,0) 62%),
+    linear-gradient(178deg,#0A2A5E 0%, #061A38 58%, #04122A 100%);
+  color:var(--navy-text);
+  padding:clamp(2.2rem,6vw,4rem) 0 0;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:-1;opacity:.5;
+  background-image:
+    linear-gradient(var(--navy-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--navy-line) 1px, transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(90% 70% at 50% 0%, #000 10%, transparent 72%);
+  mask-image:radial-gradient(90% 70% at 50% 0%, #000 10%, transparent 72%);
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.6rem;
+  color:var(--brass);font-weight:600;font-size:.92rem;letter-spacing:.02em;margin:0 0 .35rem
+}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--brass)}
+.script{
+  font-family:'Great Vibes','Apple Chancery',cursive;
+  font-size:clamp(3.4rem,13vw,7rem);
+  line-height:.94;
+  margin:.1em 0 .18em;
+  font-weight:400;
+  background:linear-gradient(180deg,#FFFFFF 12%, #9FD8F5 60%, #4FA3E8 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  padding-bottom:.12em;
+}
+.hero h1{margin:0;font-size:1px;color:transparent;height:0;overflow:hidden}
+.tagline{
+  font-size:clamp(1.05rem,2.6vw,1.45rem);font-weight:600;color:var(--navy-text);
+  margin:0 0 1.2rem;max-width:34ch
+}
+.hero-lead{color:var(--navy-text-2);max-width:58ch;margin:0 0 1.8rem}
+
+.cta{
+  display:inline-flex;align-items:center;gap:.65rem;
+  background:linear-gradient(180deg,#2E86E0,#1462C4);
+  color:#fff;text-decoration:none;font-weight:700;font-size:1.02rem;
+  padding:.92rem 1.7rem;border-radius:999px;border:1px solid rgba(160,214,255,.5);
+  box-shadow:0 10px 28px -12px rgba(46,134,224,.9);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.cta:hover{transform:translateY(-1px);box-shadow:0 14px 32px -12px rgba(46,134,224,1)}
+.cta:active{transform:translateY(0)}
+.hero-note{font-size:.85rem;color:var(--navy-text-2);margin:.85rem 0 0}
+
+.hero-grid{display:grid;gap:1rem;align-items:center}
+@media (min-width:900px){
+  .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:2.5rem}
+}
+.twin{margin:0 -1rem;min-width:0}
+@media (min-width:900px){.twin{margin:0}}
+
+.hero-foot{
+  margin-top:clamp(1.5rem,4vw,2.5rem);
+  border-top:1px solid rgba(140,196,255,.18);
+  padding:.9rem 0 1.1rem;font-size:.8rem;color:var(--navy-text-2);
+  display:flex;flex-wrap:wrap;gap:.35rem 1.4rem
+}
+
+/* ---------- Dibujo: modelo digital ---------- */
+.twin .grid-line{stroke:rgba(122,178,240,.28);stroke-width:1}
+.twin .face-l{fill:rgba(10,42,94,.85)}
+.twin .face-r{fill:rgba(18,64,132,.8)}
+.twin .face-t{fill:rgba(64,150,225,.5)}
+.twin .edge{stroke:#7FD0F5;stroke-width:1.2;fill:none;opacity:.9}
+.twin .win{fill:rgba(140,200,255,.07);stroke:rgba(140,200,255,.26);stroke-width:.55}
+.twin .win.on{fill:rgba(159,228,255,.5);stroke:rgba(200,240,255,.5)}
+.twin .win.warm{fill:rgba(215,154,85,.45);stroke:rgba(240,200,150,.45)}
+.twin .link{stroke:#D79A55;stroke-width:1;opacity:.55}
+.twin .node{fill:#9FE4FF}
+.twin .node-ring{fill:none;stroke:#6FD3F2;stroke-width:1.2;opacity:.6}
+.twin .haz{fill:url(#haz);opacity:.18}
+
+@media (prefers-reduced-motion:no-preference){
+  .twin{animation:rise .9s cubic-bezier(.2,.7,.3,1) both}
+  .twin .pulse{animation:pulse 3.6s ease-in-out infinite}
+  .twin .dron{animation:volar 5.6s ease-in-out infinite}
+  .twin .dron.d2{animation-duration:7.2s;animation-delay:-2.4s}
+  .twin .dron.d3{animation-duration:4.8s;animation-delay:-1.2s}
+  .twin .haz{animation:barrer 4.8s ease-in-out infinite;animation-delay:-1.2s}
+}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:.25;r:9}50%{opacity:.75;r:15}}
+@keyframes volar{
+  0%,100%{transform:translate(0,0)}
+  25%{transform:translate(5px,-8px)}
+  50%{transform:translate(-4px,-3px)}
+  75%{transform:translate(-6px,-9px)}
+}
+@keyframes barrer{0%,100%{opacity:.10}50%{opacity:.34}}
+
+/* ---------- Secciones ---------- */
+section{padding:clamp(2.6rem,7vw,4.6rem) 0}
+h2{
+  font-size:clamp(1.55rem,4vw,2.15rem);line-height:1.15;letter-spacing:-.015em;
+  margin:0 0 .7rem;font-weight:800
+}
+h3{font-size:1.08rem;margin:0 0 .3rem;font-weight:700;letter-spacing:-.005em}
+p{margin:0 0 1rem;max-width:68ch}
+.lead{font-size:1.06rem;color:var(--text-2)}
+
+.flow{list-style:none;counter-reset:s;padding:0;margin:2rem 0 0;display:grid;gap:1.15rem}
+@media (min-width:760px){.flow{grid-template-columns:repeat(4,1fr);gap:0}}
+.flow li{counter-increment:s;position:relative;padding:0 0 0 2.9rem}
+@media (min-width:760px){.flow li{padding:2.6rem 1.2rem 0 0}}
+.flow li::before{
+  content:counter(s,decimal-leading-zero);
+  position:absolute;left:0;top:.1rem;font-weight:700;font-size:.82rem;color:var(--copper);
+  border:1px solid var(--copper);border-radius:999px;width:2rem;height:2rem;
+  display:grid;place-items:center
+}
+@media (min-width:760px){.flow li::before{top:0}}
+.flow li::after{
+  content:"";position:absolute;left:1rem;top:2.3rem;bottom:-.4rem;width:1px;background:var(--line)
+}
+@media (min-width:760px){
+  .flow li::after{left:2.4rem;top:1rem;bottom:auto;right:0;width:auto;height:1px}
+  .flow li:last-child::after{display:none}
+}
+.flow p{font-size:.94rem;color:var(--text-2);margin:0}
+
+.roles{display:grid;gap:0;margin:1.8rem 0 0;border-top:1px solid var(--line)}
+.roles > div{
+  display:grid;gap:.15rem 1.6rem;padding:1.05rem 0;border-bottom:1px solid var(--line)
+}
+@media (min-width:720px){.roles > div{grid-template-columns:16rem minmax(0,1fr);align-items:baseline}}
+.roles h3{color:var(--azure)}
+.roles p{margin:0;font-size:.96rem;color:var(--text-2)}
+
+/* ---------- Formulario ---------- */
+.form-section{
+  background:radial-gradient(90% 60% at 50% 0%, var(--azure-soft), transparent 70%);
+  border-top:1px solid var(--line)
+}
+.panel{
+  background:var(--panel);
+  border:1px solid var(--panel-brd);
+  border-radius:20px;
+  padding:clamp(1.3rem,4vw,2.4rem);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  box-shadow:0 30px 60px -45px rgba(6,26,56,.7);
+}
+fieldset{border:0;padding:0;margin:0 0 2.2rem}
+fieldset:last-of-type{margin-bottom:1.2rem}
+legend{font-weight:800;font-size:1.12rem;padding:0;margin-bottom:.15rem;color:var(--text)}
+.legend-hint{color:var(--text-3);font-size:.88rem;margin:0 0 1.25rem}
+.row{display:grid;gap:1.05rem}
+@media (min-width:640px){.row.two{grid-template-columns:1fr 1fr}}
+
+.f{display:grid;gap:.35rem;margin-bottom:1.05rem}
+.f > label, .group > .glabel{font-weight:600;font-size:.94rem;line-height:1.35}
+.req{color:var(--copper);font-weight:700}
+.hint{font-size:.82rem;color:var(--text-3);line-height:1.4}
+input[type=text],input[type=email],input[type=tel],select,textarea{
+  font:inherit;font-size:1rem;color:var(--text);
+  background:var(--field);
+  border:1px solid var(--field-brd);
+  border-radius:11px;padding:.72rem .85rem;width:100%;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+textarea{min-height:104px;resize:vertical;line-height:1.5}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--text-2) 50%),linear-gradient(135deg,var(--text-2) 50%,transparent 50%);background-position:calc(100% - 19px) 51%,calc(100% - 13px) 51%;background-size:6px 6px,6px 6px;background-repeat:no-repeat;padding-right:2.4rem}
+input:focus,select:focus,textarea:focus{border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in srgb, var(--focus) 22%, transparent);outline:none}
+input::placeholder,textarea::placeholder{color:var(--text-3)}
+select:disabled{opacity:.55}
+
+.group{margin-bottom:1.35rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.55rem}
+.chips .sub{
+  flex-basis:100%;font-size:.78rem;font-weight:700;color:var(--text-3);
+  margin:.85rem 0 -.15rem;letter-spacing:.01em
+}
+.chips .sub:first-child{margin-top:.15rem}
+.chips input{position:absolute;opacity:0;width:1px;height:1px}
+.chips label{
+  display:inline-block;cursor:pointer;
+  background:var(--chip);border:1px solid var(--field-brd);
+  border-radius:999px;padding:.5rem .95rem;font-size:.9rem;line-height:1.25;font-weight:500;
+  transition:background .12s ease,border-color .12s ease,color .12s ease;
+  user-select:none;
+}
+.chips label:hover{border-color:var(--azure)}
+.chips input:checked + label{background:var(--azure);border-color:var(--azure);color:#fff;font-weight:600}
+.chips input:focus-visible + label{outline:3px solid var(--focus);outline-offset:2px}
+
+.stack{display:grid;gap:.45rem;margin-top:.55rem}
+.stack input{position:absolute;opacity:0;width:1px;height:1px}
+.stack label{
+  display:flex;gap:.7rem;align-items:flex-start;cursor:pointer;
+  border:1px solid var(--field-brd);border-radius:12px;padding:.68rem .85rem;
+  background:var(--chip);font-size:.95rem;line-height:1.4;transition:border-color .12s ease,background .12s ease
+}
+.stack label::before{
+  content:"";flex:none;width:18px;height:18px;margin-top:2px;border-radius:50%;
+  border:1.5px solid var(--field-brd);background:var(--field);transition:all .12s ease
+}
+.stack.check label::before{border-radius:5px}
+.stack input:checked + label{border-color:var(--azure);background:var(--azure-soft)}
+.stack input:checked + label::before{border-color:var(--azure);background:var(--azure);box-shadow:inset 0 0 0 3px var(--field)}
+.stack.check input:checked + label::before{box-shadow:inset 0 0 0 2.5px var(--field)}
+.stack input:focus-visible + label{outline:3px solid var(--focus);outline-offset:2px}
+
+.consent{border-top:1px solid var(--line);padding-top:1.3rem;margin-top:.4rem}
+details{margin:.7rem 0 1rem;font-size:.87rem;color:var(--text-2)}
+details summary{cursor:pointer;font-weight:600;color:var(--azure);width:fit-content}
+details p{margin:.6rem 0 0;font-size:.87rem}
+
+.err{color:var(--danger);font-size:.84rem;font-weight:600;display:none}
+.f.invalid .err,.group.invalid .err{display:block}
+.f.invalid input,.f.invalid select,.f.invalid textarea{border-color:var(--danger)}
+.group.invalid .chips label,.group.invalid .stack label{border-color:color-mix(in srgb,var(--danger) 45%,transparent)}
+
+.submit{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;margin-top:1.6rem}
+button.send{
+  font:inherit;font-weight:700;font-size:1.02rem;color:#fff;cursor:pointer;
+  background:linear-gradient(180deg,#2E86E0,#1462C4);
+  border:1px solid rgba(160,214,255,.5);border-radius:999px;padding:.92rem 2rem;
+  box-shadow:0 12px 30px -16px rgba(20,98,196,.95);
+  transition:transform .15s ease,opacity .15s ease
+}
+button.send:hover{transform:translateY(-1px)}
+button.send[disabled]{opacity:.6;cursor:progress;transform:none}
+.submit small{color:var(--text-3);font-size:.85rem;max-width:34ch}
+
+.fail{
+  display:none;margin-top:1.1rem;border:1px solid color-mix(in srgb,var(--danger) 40%,transparent);
+  background:color-mix(in srgb,var(--danger) 10%,transparent);
+  border-radius:12px;padding:.9rem 1rem;font-size:.92rem
+}
+.fail button{font:inherit;font-size:.88rem;font-weight:600;cursor:pointer;margin-top:.5rem;background:none;border:1px solid var(--field-brd);border-radius:999px;padding:.4rem .9rem;color:var(--text)}
+
+.done{display:none;text-align:left}
+.done.on{display:block}
+.done .mark{width:56px;height:56px;color:var(--azure);margin-bottom:.9rem}
+.done h2{margin-bottom:.5rem}
+.done ul{margin:1.2rem 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.done li{padding:.7rem 0;border-bottom:1px solid var(--line);font-size:.93rem;display:grid;gap:.1rem}
+.done li span{color:var(--text-3);font-size:.8rem}
+
+/* ---------- Pie ---------- */
+footer{
+  background:var(--navy);color:var(--navy-text-2);font-size:.88rem;
+  padding:2.4rem 0 calc(2.4rem + env(safe-area-inset-bottom,0px))
+}
+footer strong{color:var(--navy-text);display:block;font-size:1rem;margin-bottom:.2rem}
+footer .cols{display:grid;gap:1.6rem}
+@media (min-width:720px){footer .cols{grid-template-columns:1.4fr 1fr 1fr}}
+footer a{color:var(--glow)}
+.rule{height:1px;background:linear-gradient(90deg,var(--brass),rgba(215,154,85,0));margin:1.6rem 0 1.1rem}
+.fine{font-size:.78rem;color:#7C9AC1;line-height:1.55;max-width:70ch}
+.lema{font-style:italic;color:var(--brass)}
+</style>
+</head>
+<body>
+
+<div class="setup" id="setup" hidden>
+  <div class="wrap">
+    <div>
+      <b>Modo de prueba.</b> Los registros todavía no se guardan en ningún lado. Abre este archivo y llena
+      <code>CONFIG.ENDPOINT</code> (bloque <code>CONFIGURACIÓN</code>, al inicio del script) con el destino que hayas elegido.
+    </div>
+    <button type="button" aria-label="Ocultar aviso" onclick="this.closest('.setup').hidden=true">✕</button>
+  </div>
+</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <span><b>Semana de Ingeniería 2026</b></span>
+    <span>UNAM · FES Aragón</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Conversatorio académico</p>
+      <h1>Aragón Inteligente</h1>
+      <p class="script" aria-hidden="true">Aragón Inteligente</p>
+      <p class="tagline">Modelos digitales y gobernanza de la información</p>
+      <p class="hero-lead">
+        La Facultad de Estudios Superiores Aragón desarrolla el modelo digital de sus instalaciones y de su
+        entorno inmediato. La presente convocatoria tiene por objeto identificar a los integrantes de la
+        comunidad universitaria interesados en incorporarse al proyecto, así como reconocer las competencias
+        técnicas con las que cuenta cada uno.
+      </p>
+
+      <a class="cta" href="#registro">
+        Ir al registro
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+      <p class="hero-note">El registro toma aproximadamente dos minutos.</p>
+    </div>
+
+    <div class="twin">
+      <svg viewBox="0 0 900 430" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Representación isométrica del modelo digital del campus, con edificios, nodos de datos y drones de levantamiento">
+        <defs>
+          <linearGradient id="haz" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#6FD3F2" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#6FD3F2" stop-opacity=".85"/>
+          </linearGradient>
+          <g id="dron">
+            <path d="M-13,-6.5 L13,6.5 M-13,6.5 L13,-6.5" stroke="#7FD0F5" stroke-width="1.4" fill="none" opacity=".95"/>
+            <ellipse cx="-13" cy="-6.5" rx="9.5" ry="4.6" fill="none" stroke="#7FD0F5" stroke-width="1" opacity=".7"/>
+            <ellipse cx="13" cy="6.5" rx="9.5" ry="4.6" fill="none" stroke="#7FD0F5" stroke-width="1" opacity=".7"/>
+            <ellipse cx="-13" cy="6.5" rx="9.5" ry="4.6" fill="none" stroke="#7FD0F5" stroke-width="1" opacity=".7"/>
+            <ellipse cx="13" cy="-6.5" rx="9.5" ry="4.6" fill="none" stroke="#7FD0F5" stroke-width="1" opacity=".7"/>
+            <ellipse cx="-13" cy="-6.5" rx="5.2" ry="2.5" fill="none" stroke="#9FE4FF" stroke-width=".7" opacity=".35"/>
+            <ellipse cx="13" cy="6.5" rx="5.2" ry="2.5" fill="none" stroke="#9FE4FF" stroke-width=".7" opacity=".35"/>
+            <ellipse cx="-13" cy="6.5" rx="5.2" ry="2.5" fill="none" stroke="#9FE4FF" stroke-width=".7" opacity=".35"/>
+            <ellipse cx="13" cy="-6.5" rx="5.2" ry="2.5" fill="none" stroke="#9FE4FF" stroke-width=".7" opacity=".35"/>
+            <ellipse cx="0" cy="0" rx="7.4" ry="4" fill="#0C2D63" stroke="#9FE4FF" stroke-width="1.2"/>
+            <ellipse cx="0" cy="-2.4" rx="4.4" ry="2.3" fill="#1B4E9C" stroke="#9FE4FF" stroke-width=".8"/>
+            <circle cx="0" cy="3.4" r="1.8" fill="#D79A55"/>
+          </g>
+        </defs>
+
+        <g class="grid-line">
+          <line x1="450" y1="120" x2="130" y2="264"/><line x1="450" y1="120" x2="770" y2="264"/>
+          <line x1="490" y1="138" x2="170" y2="282"/><line x1="410" y1="138" x2="730" y2="282"/>
+          <line x1="530" y1="156" x2="210" y2="300"/><line x1="370" y1="156" x2="690" y2="300"/>
+          <line x1="570" y1="174" x2="250" y2="318"/><line x1="330" y1="174" x2="650" y2="318"/>
+          <line x1="610" y1="192" x2="290" y2="336"/><line x1="290" y1="192" x2="610" y2="336"/>
+          <line x1="650" y1="210" x2="330" y2="354"/><line x1="250" y1="210" x2="570" y2="354"/>
+          <line x1="690" y1="228" x2="370" y2="372"/><line x1="210" y1="228" x2="530" y2="372"/>
+          <line x1="730" y1="246" x2="410" y2="390"/><line x1="170" y1="246" x2="490" y2="390"/>
+          <line x1="770" y1="264" x2="450" y2="408"/><line x1="130" y1="264" x2="450" y2="408"/>
+        </g>
+
+        <!-- Los edificios se dibujan de atrás hacia adelante.
+             El detalle de ventanas lo agrega el script a partir de data-x, data-y y data-h. -->
+        <g class="edif" data-x="1" data-y="1" data-h="3">
+          <polygon class="face-l" points="410,96 450,114 450,192 410,174"/>
+          <polygon class="face-r" points="450,114 490,96 490,174 450,192"/>
+          <polygon class="face-t" points="450,78 490,96 450,114 410,96"/>
+          <path class="edge" d="M410,96 450,114 490,96 450,78Z M410,96V174 M450,114V192 M490,96V174 M410,174 450,192 490,174"/>
+        </g>
+        <g class="edif" data-x="3" data-y="1" data-h="5">
+          <polygon class="face-l" points="490,80 530,98 530,228 490,210"/>
+          <polygon class="face-r" points="530,98 570,80 570,210 530,228"/>
+          <polygon class="face-t" points="530,62 570,80 530,98 490,80"/>
+          <path class="edge" d="M490,80 530,98 570,80 530,62Z M490,80V210 M530,98V228 M570,80V210 M490,210 530,228 570,210"/>
+        </g>
+        <g class="edif" data-x="6" data-y="0" data-h="3">
+          <polygon class="face-l" points="650,168 690,186 690,264 650,246"/>
+          <polygon class="face-r" points="690,186 730,168 730,246 690,264"/>
+          <polygon class="face-t" points="690,150 730,168 690,186 650,168"/>
+          <path class="edge" d="M650,168 690,186 730,168 690,150Z M650,168V246 M690,186V264 M730,168V246 M650,246 690,264 730,246"/>
+        </g>
+        <g class="edif" data-x="2" data-y="4" data-h="4">
+          <polygon class="face-l" points="330,142 370,160 370,264 330,246"/>
+          <polygon class="face-r" points="370,160 410,142 410,246 370,264"/>
+          <polygon class="face-t" points="370,124 410,142 370,160 330,142"/>
+          <path class="edge" d="M330,142 370,160 410,142 370,124Z M330,142V246 M370,160V264 M410,142V246 M330,246 370,264 410,246"/>
+        </g>
+        <g class="edif" data-x="0" data-y="6" data-h="2">
+          <polygon class="face-l" points="170,194 210,212 210,264 170,246"/>
+          <polygon class="face-r" points="210,212 250,194 250,246 210,264"/>
+          <polygon class="face-t" points="210,176 250,194 210,212 170,194"/>
+          <path class="edge" d="M170,194 210,212 250,194 210,176Z M170,194V246 M210,212V264 M250,194V246 M170,246 210,264 250,246"/>
+        </g>
+        <g class="edif" data-x="5" data-y="2" data-h="2">
+          <polygon class="face-l" points="530,212 570,230 570,282 530,264"/>
+          <polygon class="face-r" points="570,230 610,212 610,264 570,282"/>
+          <polygon class="face-t" points="570,194 610,212 570,230 530,212"/>
+          <path class="edge" d="M530,212 570,230 610,212 570,194Z M530,212V264 M570,230V282 M610,212V264 M530,264 570,282 610,264"/>
+        </g>
+        <g class="edif" data-x="5" data-y="5" data-h="6">
+          <polygon class="face-l" points="410,162 450,180 450,336 410,318"/>
+          <polygon class="face-r" points="450,180 490,162 490,318 450,336"/>
+          <polygon class="face-t" points="450,144 490,162 450,180 410,162"/>
+          <path class="edge" d="M410,162 450,180 490,162 450,144Z M410,162V318 M450,180V336 M490,162V318 M410,318 450,336 490,318"/>
+        </g>
+
+        <g class="link">
+          <path d="M530,62 620,52"/><path d="M620,52 690,150"/><path d="M450,78 370,124"/>
+          <path d="M370,124 280,72"/><path d="M450,78 530,62"/><path d="M450,144 570,194"/>
+          <path d="M280,72 210,176"/><path d="M450,144 450,78"/>
+        </g>
+
+        <g>
+          <circle class="node-ring pulse" cx="450" cy="144" r="10"/>
+          <circle class="node" cx="530" cy="62" r="3.4"/>
+          <circle class="node" cx="450" cy="78" r="3.4"/>
+          <circle class="node" cx="370" cy="124" r="3.4"/>
+          <circle class="node" cx="690" cy="150" r="3.4"/>
+          <circle class="node" cx="450" cy="144" r="4"/>
+          <circle class="node" cx="570" cy="194" r="3.4"/>
+          <circle class="node" cx="210" cy="176" r="3.4"/>
+        </g>
+
+        <!-- Haz de levantamiento del dron central sobre la torre principal -->
+        <polygon class="haz" points="450,44 410,162 450,180 490,162"/>
+
+        <!-- Drones -->
+        <g transform="translate(620,52)"><use href="#dron" xlink:href="#dron" class="dron d1"/></g>
+        <g transform="translate(280,72)"><use href="#dron" xlink:href="#dron" class="dron d2"/></g>
+        <g transform="translate(450,36)"><use href="#dron" xlink:href="#dron" class="dron d3"/></g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="wrap hero-foot">
+    <span>Facultad de Estudios Superiores Aragón</span>
+    <span>Universidad Nacional Autónoma de México</span>
+    <span class="lema">“Por una cultura de la paz”</span>
+  </div>
+</header>
+
+<main>
+<section class="narrow">
+  <h2>Sobre el proyecto</h2>
+  <p class="lead">
+    Un modelo digital es la representación consultable de un espacio construido: su geometría, sus redes,
+    sus instalaciones y los atributos que describen cada elemento, integrados en un mismo entorno de consulta.
+  </p>
+  <p>
+    Su finalidad es que la información requerida para planear, operar y mantener la infraestructura provenga
+    de una fuente única, verificable y actualizada, en lugar de reconstruirse cada vez a partir de registros
+    dispersos entre distintas áreas.
+  </p>
+  <p>
+    La Facultad ha iniciado este trabajo mediante levantamientos con aeronaves no tripuladas, fotogrametría,
+    generación de nubes de puntos y modelado tridimensional. La etapa siguiente corresponde a la gobernanza de
+    la información: definir los criterios bajo los cuales esos datos se estructuran, resguardan, versionan y se
+    ponen a disposición de quienes toman decisiones. Para desarrollarla se requiere la incorporación de nuevos
+    colaboradores.
+  </p>
+
+  <ol class="flow">
+    <li><h3>Captura</h3><p>Levantamiento topográfico, vuelo fotogramétrico y control terrestre.</p></li>
+    <li><h3>Modelado</h3><p>Nubes de puntos, restitución, modelos BIM y geometría tridimensional.</p></li>
+    <li><h3>Gobernanza</h3><p>Estructura de datos, metadatos, control de versiones y resguardo.</p></li>
+    <li><h3>Decisión</h3><p>Consulta, análisis espacial y tableros para planeación y mantenimiento.</p></li>
+  </ol>
+</section>
+
+<section class="narrow" style="padding-top:0">
+  <h2>Perfiles requeridos</h2>
+  <p class="lead">
+    No se requiere dominio de todas las áreas. El propósito del registro es identificar la competencia
+    específica que cada persona puede aportar al proyecto.
+  </p>
+  <div class="roles">
+    <div>
+      <h3>Levantamiento en campo</h3>
+      <p>Topografía, estación total, GPS diferencial, operación de aeronaves no tripuladas y establecimiento de control terrestre.</p>
+    </div>
+    <div>
+      <h3>Modelado y procesamiento</h3>
+      <p>Fotogrametría, nubes de puntos, modelado BIM, dibujo asistido por computadora y verificación de la calidad geométrica.</p>
+    </div>
+    <div>
+      <h3>Datos e infraestructura</h3>
+      <p>Sistemas de información geográfica, bases de datos, administración de servidores, respaldos, programación y automatización de procesos.</p>
+    </div>
+    <div>
+      <h3>Gobernanza de la información</h3>
+      <p>Normatividad aplicable, metadatos, interoperabilidad, gestión documental, protección de datos personales y control de accesos.</p>
+    </div>
+    <div>
+      <h3>Análisis y aprovechamiento</h3>
+      <p>Análisis espacial, estadística, tableros de indicadores y elaboración de insumos para la toma de decisiones.</p>
+    </div>
+    <div>
+      <h3>Comunicación institucional</h3>
+      <p>Documentación técnica, diseño editorial, producción audiovisual y divulgación de los resultados del proyecto.</p>
+    </div>
+  </div>
+</section>
+
+<section class="form-section" id="registro">
+  <div class="narrow">
+    <div class="panel">
+
+      <div class="done" id="done" role="status" aria-live="polite">
+        <svg class="mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="21"/><path d="M15 24.5l6.5 6.5L34 18"/></svg>
+        <h2>Registro recibido</h2>
+        <p id="doneMsg">Tu registro quedó asentado. Te contactaremos al correo proporcionado para informarte sobre la integración de los equipos de trabajo y la programación de actividades.</p>
+        <ul id="doneSummary"></ul>
+      </div>
+
+      <form id="form" novalidate>
+        <h2 style="margin-bottom:.4rem">Registro de participación</h2>
+        <p class="lead" style="margin-bottom:2.2rem">
+          Los campos señalados con <span class="req">*</span> son indispensables para poder establecer contacto
+          contigo e integrarte a un equipo de trabajo.
+        </p>
+
+        <fieldset>
+          <legend>Datos de identificación</legend>
+          <p class="legend-hint">Información necesaria para el contacto posterior.</p>
+
+          <div class="row two">
+            <div class="f" data-f>
+              <label for="nombre">Nombre completo <span class="req">*</span></label>
+              <input type="text" id="nombre" name="nombre" autocomplete="name" required>
+              <span class="err">Escribe tu nombre completo.</span>
+            </div>
+            <div class="f" data-f>
+              <label for="correo">Correo electrónico <span class="req">*</span></label>
+              <input type="email" id="correo" name="correo" autocomplete="email" inputmode="email" placeholder="tucuenta@comunidad.unam.mx" required>
+              <span class="hint">Si cuentas con correo institucional, utilízalo preferentemente.</span>
+              <span class="err">Revisa el correo: falta el @ o el dominio.</span>
+            </div>
+          </div>
+
+          <div class="row two">
+            <div class="f">
+              <label for="tel">Teléfono de contacto</label>
+              <input type="tel" id="tel" name="telefono" autocomplete="tel" inputmode="tel" placeholder="55 0000 0000">
+              <span class="hint">Opcional. Se utilizará únicamente para la coordinación interna.</span>
+            </div>
+            <div class="f">
+              <label for="cuenta">Número de cuenta o de trabajador</label>
+              <input type="text" id="cuenta" name="cuenta" inputmode="numeric" placeholder="Opcional">
+            </div>
+          </div>
+
+          <div class="group" data-g>
+            <span class="glabel">Vínculo con la Facultad <span class="req">*</span></span>
+            <div class="chips" id="rol" data-name="rol" data-mode="one"></div>
+            <span class="err">Selecciona una opción.</span>
+          </div>
+
+          <div class="row two">
+            <div class="f" data-f>
+              <label for="carrera">Carrera, programa o área de adscripción <span class="req">*</span></label>
+              <select id="carrera" name="carrera" required>
+                <option value="">Selecciona…</option>
+                <option>Ingeniería Civil</option>
+                <option>Ingeniería en Computación</option>
+                <option>Ingeniería Eléctrica Electrónica</option>
+                <option>Ingeniería Industrial</option>
+                <option>Ingeniería Mecánica</option>
+                <option>Arquitectura</option>
+                <option>Diseño Industrial</option>
+                <option>Planificación para el Desarrollo Agropecuario</option>
+                <option>Posgrado</option>
+                <option>Área administrativa</option>
+                <option>Otra</option>
+              </select>
+              <span class="err">Selecciona tu carrera o área de adscripción.</span>
+            </div>
+            <div class="f">
+              <label for="avance">Semestre o antigüedad</label>
+              <input type="text" id="avance" name="avance" placeholder="7.º semestre / 3 años">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Competencias técnicas</legend>
+          <p class="legend-hint">Selecciona las áreas que ya sabes emplear, incluso a nivel básico. Esta información determina el equipo al que serás asignado.</p>
+
+          <div class="group" data-g>
+            <span class="glabel">Áreas en las que tienes experiencia <span class="req">*</span></span>
+            <span class="hint">Puedes seleccionar tantas como apliquen.</span>
+            <div class="chips" id="areas" data-name="areas" data-mode="many"></div>
+            <span class="err">Selecciona al menos una. Si aún no tienes experiencia, marca la última opción.</span>
+          </div>
+
+          <div class="row two">
+            <div class="f" data-f>
+              <label for="fuerte">Área de mayor dominio <span class="req">*</span></label>
+              <select id="fuerte" name="area_fuerte" required disabled>
+                <option value="">Selecciona primero tus áreas</option>
+              </select>
+              <span class="err">Indica cuál es tu área de mayor dominio.</span>
+            </div>
+            <div class="f">
+              <label for="soft">Programas y herramientas que utilizas</label>
+              <input type="text" id="soft" name="software" placeholder="QGIS, Revit, Python, Power BI…">
+            </div>
+          </div>
+
+          <div class="group" data-g>
+            <span class="glabel">Nivel de dominio en esa área <span class="req">*</span></span>
+            <div class="stack" id="nivel" data-name="nivel" data-mode="one"></div>
+            <span class="err">Selecciona tu nivel de dominio.</span>
+          </div>
+
+          <div class="group">
+            <span class="glabel">Equipo con el que cuentas</span>
+            <span class="hint">Opcional. No constituye un requisito para participar.</span>
+            <div class="chips" id="equipo" data-name="equipo" data-mode="many"></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Interés de colaboración</legend>
+          <p class="legend-hint">Con esta información se integran los equipos y se define la programación de actividades.</p>
+
+          <div class="group" data-g>
+            <span class="glabel">Líneas de trabajo de tu interés <span class="req">*</span></span>
+            <span class="hint">Puedes seleccionar varias.</span>
+            <div class="chips" id="interes" data-name="interes" data-mode="many"></div>
+            <span class="err">Selecciona al menos una línea de trabajo.</span>
+          </div>
+
+          <div class="row two">
+            <div class="group">
+              <span class="glabel">Disponibilidad semanal</span>
+              <div class="chips" id="horas" data-name="horas" data-mode="one"></div>
+            </div>
+            <div class="group">
+              <span class="glabel">Horarios disponibles</span>
+              <div class="chips" id="disp" data-name="disponibilidad" data-mode="many"></div>
+            </div>
+          </div>
+
+          <div class="f">
+            <label for="idea">¿Qué problema de la Facultad o de su entorno consideras que podría atenderse con un modelo digital?</label>
+            <textarea id="idea" name="propuesta" placeholder="Opcional. Es el campo que más nos dice sobre tu interés en el proyecto."></textarea>
+          </div>
+        </fieldset>
+
+        <div class="consent">
+          <details>
+            <summary>Aviso de privacidad</summary>
+            <p>
+              Los datos personales que proporciones serán tratados por el equipo responsable del proyecto
+              Aragón Inteligente, de la Facultad de Estudios Superiores Aragón, UNAM, con la finalidad exclusiva
+              de establecer contacto contigo, integrarte a los equipos de trabajo y remitirte información
+              relativa a las actividades del proyecto. No serán transferidos a terceros ajenos a la Universidad
+              ni utilizados con fines comerciales. Podrás solicitar la rectificación o supresión de tus datos
+              mediante comunicación dirigida al correo de contacto señalado al pie de esta página.
+            </p>
+          </details>
+
+          <div class="group" data-g>
+            <div class="stack check">
+              <input type="checkbox" id="acepto" name="consentimiento" value="Sí" required>
+              <label for="acepto">Autorizo el tratamiento de mis datos personales conforme al aviso de privacidad. <span class="req">*</span></label>
+            </div>
+            <span class="err">Se requiere tu autorización para poder establecer contacto.</span>
+          </div>
+
+          <div class="stack check">
+            <input type="checkbox" id="boletin" name="avisos" value="Sí">
+            <label for="boletin">Deseo recibir información sobre cursos y talleres relacionados con el proyecto.</label>
+          </div>
+        </div>
+
+        <div class="submit">
+          <button type="submit" class="send" id="send">Enviar mi registro</button>
+          <small id="sendNote">Recibirás confirmación en el correo proporcionado.</small>
+        </div>
+
+        <div class="fail" id="fail" role="alert">
+          <strong>No fue posible enviar el registro.</strong>
+          <div id="failMsg">Verifica tu conexión e inténtalo de nuevo.</div>
+          <button type="button" id="copyBtn">Copiar mis respuestas</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <strong>Aragón Inteligente</strong>
+        Modelos digitales y gobernanza de la información.<br>
+        Semana de Ingeniería 2026, FES Aragón, UNAM.
+      </div>
+      <div>
+        <strong>Participantes</strong>
+        Ing. Juan Carlos Ortiz León<br>
+        Ing. Josué Ramírez Hernández<br>
+        Carlos Arturo Alonso Perea
+      </div>
+      <div>
+        <strong>Contacto</strong>
+        <a href="mailto:aragoninteligente@aragon.unam.mx">aragoninteligente@aragon.unam.mx</a><br>
+        Moderador: Ing. Miguel Ángel Hernández García
+      </div>
+    </div>
+    <div class="rule"></div>
+    <p class="fine">
+      Universidad Nacional Autónoma de México · Facultad de Estudios Superiores Aragón · 50 años.
+      <span class="lema">“Por una cultura de la paz”</span>
+    </p>
+  </div>
+</footer>
+
+<script>
+/* ==========================================================================
+   CONFIGURACIÓN — lo único que necesitas tocar
+   ==========================================================================
+   ENDPOINT: la dirección que RECIBE y GUARDA los registros.
+   Mientras esté vacío, la página funciona en MODO DE PRUEBA: valida todo y
+   muestra la confirmación, pero no guarda nada.
+   ========================================================================== */
+const CONFIG = {
+  // 1) Pega aquí la URL que termina en /exec que te entregó Google Apps Script.
+  ENDPOINT: "",
+
+  // 2) Déjalo en "apps-script" si guardas en Google Sheets.
+  //    Cámbialo a "json" solo si conectas otro servicio (Supabase, servidor propio).
+  TIPO: "apps-script",
+
+  ACCESS_KEY: "",
+  ASUNTO: "Nuevo registro — Aragón Inteligente",
+  CORREO_CONTACTO: "aragoninteligente@aragon.unam.mx"
+};
+
+/* ====== Catálogos de respuestas (edítalos libremente) ====== */
+const OPCIONES = {
+  rol: ["Estudiante","Docente","Personal administrativo","Egresada o egresado","Externo"],
+
+  areas: [
+    { grupo:"Levantamiento y campo", items:[
+      "Topografía y geodesia",
+      "Operación de drones",
+      "Escaneo láser y LiDAR",
+      "Levantamiento arquitectónico",
+      "Georreferenciación y control terrestre",
+      "Instrumentación y medición"
+    ]},
+    { grupo:"Modelado y procesamiento", items:[
+      "Fotogrametría",
+      "Nubes de puntos",
+      "BIM (Revit, Civil 3D, Navisworks)",
+      "Dibujo asistido por computadora (CAD)",
+      "Modelado 3D y visualización",
+      "Realidad virtual y aumentada",
+      "Renderizado y recorridos virtuales"
+    ]},
+    { grupo:"Datos y sistemas", items:[
+      "Sistemas de información geográfica",
+      "Percepción remota y teledetección",
+      "Bases de datos",
+      "Programación",
+      "Desarrollo web y aplicaciones",
+      "Análisis estadístico",
+      "Visualización de datos y tableros",
+      "Inteligencia artificial y aprendizaje automático",
+      "Internet de las cosas y sensores",
+      "Redes e infraestructura de TI",
+      "Ciberseguridad",
+      "Cómputo en la nube"
+    ]},
+    { grupo:"Gestión de la información", items:[
+      "Gobernanza y calidad de datos",
+      "Metadatos y catalogación",
+      "Interoperabilidad y estándares (IFC, OGC, ISO)",
+      "Gestión documental y archivística",
+      "Protección de datos personales",
+      "Administración de proyectos",
+      "Normatividad y marco jurídico"
+    ]},
+    { grupo:"Ingeniería y operación del inmueble", items:[
+      "Estructuras",
+      "Instalaciones eléctricas",
+      "Instalaciones hidráulicas y sanitarias",
+      "Mantenimiento e infraestructura",
+      "Eficiencia energética y sostenibilidad",
+      "Protección civil y gestión de riesgos",
+      "Movilidad y accesibilidad"
+    ]},
+    { grupo:"Comunicación y documentación", items:[
+      "Redacción y documentación técnica",
+      "Diseño gráfico y editorial",
+      "Producción audiovisual",
+      "Divulgación científica"
+    ]},
+    { grupo:"Sin experiencia previa", items:[
+      "Aún no tengo experiencia; me interesa capacitarme"
+    ]}
+  ],
+
+  nivel: [
+    ["En formación", "He cursado la materia o realizado ejercicios introductorios."],
+    ["Nivel intermedio", "Puedo avanzar con orientación de una persona con más experiencia."],
+    ["Nivel autónomo", "Entrego resultados sin supervisión."],
+    ["Nivel avanzado", "Puedo formar a otras personas y revisar su trabajo."]
+  ],
+
+  equipo: ["Equipo de cómputo con capacidad de procesamiento","Dron propio","GPS o estación total","Cámara fotográfica","Licencia de piloto remoto","Ninguno por el momento"],
+
+  interes: [
+    "Levantamiento en campo",
+    "Procesamiento de nubes de puntos",
+    "Modelado 3D y BIM",
+    "Sistemas de información geográfica",
+    "Base de datos y gobernanza",
+    "Plataforma web del proyecto",
+    "Análisis y tableros de indicadores",
+    "Documentación y divulgación",
+    "Aún no lo defino; deseo conocer más"
+  ],
+
+  horas: ["Menos de 4 horas","De 4 a 8 horas","De 8 a 15 horas","Más de 15 horas"],
+  disponibilidad: ["Matutino entre semana","Vespertino entre semana","Sábados","A distancia"]
+};
+
+/* ====== Construcción de las opciones ====== */
+function slug(s){return s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9]+/g,"-").toLowerCase();}
+
+function campoOpcion(name, tipo, op){
+  const titulo = Array.isArray(op) ? op[0] : op;
+  const desc   = Array.isArray(op) ? op[1] : "";
+  const fid = name + "-" + slug(titulo);
+  const cuerpo = desc
+    ? `<span><b style="display:block;font-weight:600">${titulo}</b><span class="hint">${desc}</span></span>`
+    : titulo;
+  return `<input type="${tipo}" id="${fid}" name="${name}" value="${titulo}"><label for="${fid}">${cuerpo}</label>`;
+}
+
+function pintar(id, lista){
+  const cont = document.getElementById(id);
+  if(!cont) return;
+  const name = cont.dataset.name;
+  const tipo = cont.dataset.mode === "one" ? "radio" : "checkbox";
+  cont.innerHTML = lista.map(op => {
+    if(op && op.grupo){
+      return `<p class="sub">${op.grupo}</p>` + op.items.map(i => campoOpcion(name, tipo, i)).join("");
+    }
+    return campoOpcion(name, tipo, op);
+  }).join("");
+}
+
+pintar("rol", OPCIONES.rol);
+pintar("areas", OPCIONES.areas);
+pintar("nivel", OPCIONES.nivel);
+pintar("equipo", OPCIONES.equipo);
+pintar("interes", OPCIONES.interes);
+pintar("horas", OPCIONES.horas);
+pintar("disp", OPCIONES.disponibilidad);
+
+/* ====== "Área de mayor dominio" se alimenta de lo marcado arriba ====== */
+const selFuerte = document.getElementById("fuerte");
+document.getElementById("areas").addEventListener("change", () => {
+  const marcadas = [...document.querySelectorAll('input[name="areas"]:checked')].map(i => i.value);
+  const previo = selFuerte.value;
+  if(!marcadas.length){
+    selFuerte.innerHTML = '<option value="">Selecciona primero tus áreas</option>';
+    selFuerte.disabled = true;
+    return;
+  }
+  selFuerte.disabled = false;
+  selFuerte.innerHTML = '<option value="">Selecciona…</option>' +
+    marcadas.map(a => `<option${a===previo?" selected":""}>${a}</option>`).join("");
+});
+
+/* ====== Detalle de fachadas del modelo (ventanas por nivel) ====== */
+(function fachadas(){
+  const NS = "http://www.w3.org/2000/svg";
+  const PISO = 26;                       // alto de cada nivel, en píxeles
+  const COLS = [[.07,.31],[.37,.63],[.69,.93]];  // columnas de ventanas
+  const azar = (a,b,c) => { const s = Math.sin(a*127.1 + b*311.7 + c*74.7) * 43758.5453; return s - Math.floor(s); };
+  const P = (x,y,h) => [450 + 40*(x-y), 120 + 18*(x+y) - PISO*h];
+
+  document.querySelectorAll(".twin .edif").forEach(gEdif => {
+    const x = +gEdif.dataset.x, y = +gEdif.dataset.y, h = +gEdif.dataset.h;
+    const D = P(x, y+1, h), C = P(x+1, y+1, h), B = P(x+1, y, h);
+    const caras = [[D,C,0],[C,B,1]];      // fachada izquierda y derecha
+    const frag = document.createDocumentFragment();
+
+    caras.forEach(([ini, fin, cara]) => {
+      for(let piso = 0; piso < h; piso++){
+        COLS.forEach(([f1, f2], col) => {
+          const px = f => ini[0] + (fin[0]-ini[0])*f;
+          const py = f => ini[1] + (fin[1]-ini[1])*f;
+          const y1 = PISO*piso + 7, y2 = PISO*(piso+1) - 5;
+          const pts = [
+            [px(f1), py(f1)+y1],[px(f2), py(f2)+y1],
+            [px(f2), py(f2)+y2],[px(f1), py(f1)+y2]
+          ].map(p => p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ");
+
+          const v = document.createElementNS(NS, "polygon");
+          v.setAttribute("points", pts);
+          const r = azar(x*7 + y*13 + cara*3, piso, col);
+          v.setAttribute("class", r > .82 ? "win warm" : (r > .58 ? "win on" : "win"));
+          frag.appendChild(v);
+        });
+      }
+    });
+
+    // Las ventanas van debajo del contorno para que las aristas sigan encima.
+    gEdif.insertBefore(frag, gEdif.querySelector(".edge"));
+  });
+})();
+
+/* ====== Validación ====== */
+const form = document.getElementById("form");
+const OBLIGATORIOS = ["rol","areas","nivel","interes"];
+
+function limpiar(el){ el.classList.remove("invalid"); }
+function marcar(el){ el.classList.add("invalid"); return el; }
+
+function validar(){
+  let primerError = null;
+  document.querySelectorAll(".f[data-f], .group[data-g]").forEach(limpiar);
+
+  form.querySelectorAll("input[required], select[required]").forEach(campo => {
+    if(campo.type === "checkbox") return;
+    const cont = campo.closest(".f[data-f]");
+    if(!cont) return;
+    const ok = campo.value.trim() !== "" && campo.checkValidity();
+    if(!ok) primerError = primerError || marcar(cont);
+  });
+
+  OBLIGATORIOS.forEach(name => {
+    const cont = document.querySelector(`[data-name="${name}"]`).closest(".group[data-g]");
+    if(!form.querySelector(`input[name="${name}"]:checked`)) primerError = primerError || marcar(cont);
+  });
+
+  const acepto = document.getElementById("acepto");
+  if(!acepto.checked) primerError = primerError || marcar(acepto.closest(".group[data-g]"));
+
+  if(primerError){
+    primerError.scrollIntoView({behavior:"smooth", block:"center"});
+    const foco = primerError.querySelector("input:not([disabled]), select:not([disabled]), textarea");
+    if(foco) setTimeout(() => foco.focus({preventScroll:true}), 350);
+  }
+  return !primerError;
+}
+
+form.addEventListener("input", e => { const c = e.target.closest(".f[data-f], .group[data-g]"); if(c) limpiar(c); });
+form.addEventListener("change", e => { const c = e.target.closest(".f[data-f], .group[data-g]"); if(c) limpiar(c); });
+
+/* ====== Envío ====== */
+function recolectar(){
+  const d = {};
+  new FormData(form).forEach((v, k) => {
+    if(d[k] === undefined) d[k] = v;
+    else if(Array.isArray(d[k])) d[k].push(v);
+    else d[k] = [d[k], v];
+  });
+  Object.keys(d).forEach(k => { if(Array.isArray(d[k])) d[k] = d[k].join("; "); });
+  d.enviado_en = new Date().toLocaleString("es-MX");
+  d.evento = "Conversatorio Aragón Inteligente · Semana de Ingeniería 2026";
+  d.folio = "AI-" + Date.now().toString(36).toUpperCase() + "-" +
+            Math.random().toString(36).slice(2,6).toUpperCase();
+  return d;
+}
+
+let ultimoPayload = null;
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  document.getElementById("fail").style.display = "none";
+  if(!validar()) return;
+
+  const datos = recolectar();
+  ultimoPayload = datos;
+  const btn = document.getElementById("send");
+  btn.disabled = true;
+  btn.textContent = "Enviando…";
+
+  try{
+    if(CONFIG.ENDPOINT){
+      const cuerpo = CONFIG.ACCESS_KEY
+        ? Object.assign({access_key: CONFIG.ACCESS_KEY, subject: CONFIG.ASUNTO}, datos)
+        : datos;
+
+      // Apps Script rechaza "application/json" enviado desde el navegador.
+      // Con "text/plain" el navegador omite la verificación previa y la petición pasa.
+      const headers = CONFIG.TIPO === "apps-script"
+        ? {"Content-Type":"text/plain;charset=utf-8"}
+        : {"Content-Type":"application/json","Accept":"application/json"};
+
+      try{
+        const r = await fetch(CONFIG.ENDPOINT, {method:"POST", headers, body: JSON.stringify(cuerpo)});
+        if(!r.ok) throw new Error("El servidor respondió " + r.status);
+      }catch(fallo){
+        if(CONFIG.TIPO !== "apps-script") throw fallo;
+        // Red de seguridad: si el navegador impide leer la respuesta, se reenvía
+        // en modo opaco. El dato llega igual a la hoja; el folio evita duplicados.
+        await fetch(CONFIG.ENDPOINT, {
+          method:"POST", mode:"no-cors",
+          headers:{"Content-Type":"text/plain;charset=utf-8"},
+          body: JSON.stringify(cuerpo)
+        });
+      }
+    }else{
+      await new Promise(r => setTimeout(r, 600));
+      console.log("MODO DE PRUEBA — registro que se habría enviado:", datos);
+    }
+    exito(datos);
+  }catch(err){
+    btn.disabled = false;
+    btn.textContent = "Enviar mi registro";
+    const box = document.getElementById("fail");
+    document.getElementById("failMsg").textContent =
+      "Inténtalo nuevamente en unos momentos. Si el problema persiste, copia tus respuestas y remítelas a " + CONFIG.CORREO_CONTACTO + ".";
+    box.style.display = "block";
+    box.scrollIntoView({behavior:"smooth", block:"center"});
+    console.error(err);
+  }
+});
+
+document.getElementById("copyBtn").addEventListener("click", async e => {
+  if(!ultimoPayload) return;
+  const texto = Object.entries(ultimoPayload).map(([k,v]) => `${k}: ${v}`).join("\n");
+  try{
+    await navigator.clipboard.writeText(texto);
+    e.target.textContent = "Respuestas copiadas";
+  }catch{
+    e.target.textContent = "No fue posible copiar";
+  }
+});
+
+function exito(d){
+  const resumen = [
+    ["Folio", d.folio],
+    ["Nombre", d.nombre],
+    ["Correo", d.correo],
+    ["Área de mayor dominio", d.area_fuerte ? d.area_fuerte + " · " + d.nivel : ""],
+    ["Líneas de interés", d.interes]
+  ];
+  document.getElementById("doneSummary").innerHTML = resumen
+    .filter(([,v]) => v)
+    .map(([k,v]) => `<li><span>${k}</span>${v}</li>`).join("");
+  if(!CONFIG.ENDPOINT){
+    document.getElementById("doneMsg").textContent =
+      "Vista previa de la confirmación. El registro todavía no se guarda porque falta configurar el destino de los datos.";
+  }
+  form.style.display = "none";
+  document.getElementById("done").classList.add("on");
+  document.getElementById("done").scrollIntoView({behavior:"smooth", block:"center"});
+}
+
+if(!CONFIG.ENDPOINT){ document.getElementById("setup").hidden = false; }
+</script>
+</body>
+</html>
